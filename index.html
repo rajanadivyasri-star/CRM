@@ -3,300 +3,409 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dark Theme CRM</title>
-    <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Boutique Fashion</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="dark-theme">
+<body>
 
-    <div class="app-layout">
-        
-        <!-- ==========================================
-             SIDEBAR NAVIGATION
-             ========================================== -->
-        <aside class="sidebar glass-panel">
-            <div class="brand">
-                <div class="brand-icon"><i class='bx bx-planet'></i></div>
-                <h2>Void <span>CRM</span></h2>
+    <!-- Header / Navbar -->
+    <header class="navbar" id="navbar">
+        <div class="logo">
+            <a href="#">LUMIÈRE <span>Boutique</span></a>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="nav-icons">
+            <div class="search-container">
+                <input type="text" id="search-input" class="search-input" placeholder="Search clothes, jewellary, shoes...">
+                <button id="search-btn" class="search-btn"><i class="fas fa-search"></i></button>
             </div>
             
-            <nav class="nav-menu">
-                <a href="#" class="nav-item active" data-target="view-dashboard">
-                    <i class='bx bx-grid-alt'></i> Dashboard
-                </a>
-                <a href="#" class="nav-item" data-target="view-leads">
-                    <i class='bx bx-group'></i> Leads
-                </a>
-                <a href="#" class="nav-item" data-target="view-analytics">
-                    <i class='bx bx-line-chart'></i> Analytics
-                </a>
-                <a href="#" class="nav-item" data-target="view-settings">
-                    <i class='bx bx-cog'></i> Settings
-                </a>
-            </nav>
-
-            <div class="sidebar-bottom">
-                <a href="#" class="nav-item text-danger" onclick="alert('Logged out securely.')">
-                    <i class='bx bx-log-out'></i> Logout
-                </a>
-            </div>
-        </aside>
-
-        <!-- ==========================================
-             MAIN CONTENT
-             ========================================== -->
-        <main class="main-content">
+            <a href="#" id="cart-icon" class="cart-icon-container">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-badge" id="cart-badge">0</span>
+            </a>
             
-            <!-- TOP HEADER -->
-            <header class="top-header glass-panel">
-                <div class="header-title">
-                    <h2>Welcome Back, Admin</h2>
-                </div>
-                <div class="header-actions">
-                    <div class="search-bar">
-                        <i class='bx bx-search'></i>
-                        <input type="text" placeholder="Global search..." disabled title="Use search in leads section">
-                    </div>
-                    <div class="profile-btn">
-                        <div class="avatar"><i class='bx bx-user'></i></div>
-                    </div>
-                </div>
-            </header>
-
-            <div class="view-container">
-
-                <!-- ==========================================
-                     DASHBOARD VIEW
-                     ========================================== -->
-                <section id="view-dashboard" class="view-panel active">
-                    <div class="view-head">
-                        <h1>Dashboard Overview</h1>
-                        <p>Real-time metrics and lead generation analysis.</p>
-                    </div>
-
-                    <!-- 4 Summary Cards -->
-                    <div class="summary-grid">
-                        <div class="summary-card glass-panel">
-                            <div class="sc-content">
-                                <h3>Total Leads</h3>
-                                <h2 id="dash-total">0</h2>
-                            </div>
-                            <div class="sc-icon text-primary"><i class='bx bx-bar-chart-alt-2'></i></div>
-                            <div class="sc-growth positive"><i class='bx bx-up-arrow-alt'></i> 12.5%</div>
-                        </div>
-                        <div class="summary-card glass-panel">
-                            <div class="sc-content">
-                                <h3>New Leads</h3>
-                                <h2 id="dash-new">0</h2>
-                            </div>
-                            <div class="sc-icon text-info"><i class='bx bx-user-plus'></i></div>
-                            <div class="sc-growth positive"><i class='bx bx-up-arrow-alt'></i> 5.2%</div>
-                        </div>
-                        <div class="summary-card glass-panel">
-                            <div class="sc-content">
-                                <h3>Converted Leads</h3>
-                                <h2 id="dash-converted">0</h2>
-                            </div>
-                            <div class="sc-icon text-success"><i class='bx bx-check-circle'></i></div>
-                            <div class="sc-growth positive"><i class='bx bx-up-arrow-alt'></i> 8.4%</div>
-                        </div>
-                        <div class="summary-card glass-panel">
-                            <div class="sc-content">
-                                <h3>Conversion Rate</h3>
-                                <h2 id="dash-rate">0%</h2>
-                            </div>
-                            <div class="sc-icon text-warning"><i class='bx bx-target-lock'></i></div>
-                            <div class="sc-growth negative"><i class='bx bx-down-arrow-alt'></i> 1.1%</div>
-                        </div>
-                    </div>
-
-                    <!-- Chart & Activity -->
-                    <div class="dashboard-split">
-                        
-                        <!-- Chart.js Container -->
-                        <div class="chart-container glass-panel">
-                            <div class="panel-header">
-                                <h3>Lead Generation Overview</h3>
-                            </div>
-                            <div class="canvas-wrapper">
-                                <canvas id="leadChart"></canvas>
-                            </div>
-                        </div>
-
-                        <!-- Recent Activity -->
-                        <div class="activity-container glass-panel">
-                            <div class="panel-header">
-                                <h3>Recent Activity</h3>
-                            </div>
-                            <ul class="activity-list" id="recent-activity-list">
-                                <!-- Populated by JS -->
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- ==========================================
-                     LEADS VIEW
-                     ========================================== -->
-                <section id="view-leads" class="view-panel hidden">
-                    <div class="view-head">
-                        <h1>Leads Management</h1>
-                        <p>Detailed tracking, adding, and filtering of leads.</p>
-                    </div>
-
-                    <div class="leads-layout">
-                        
-                        <!-- Form Card -->
-                        <div class="form-container glass-panel">
-                            <div class="panel-header" style="justify-content: space-between;">
-                                <h3 id="form-title">Add New Lead</h3>
-                                <button id="cancel-edit-btn" class="btn btn-icon hidden"><i class='bx bx-x'></i></button>
-                            </div>
-                            <form id="lead-form">
-                                <input type="hidden" id="lead-id">
-                                
-                                <div class="form-group">
-                                    <label>Full Name</label>
-                                    <div class="input-wrap">
-                                        <i class='bx bx-user'></i>
-                                        <input type="text" id="lead-name" required placeholder="John Doe">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Email Address</label>
-                                    <div class="input-wrap">
-                                        <i class='bx bx-envelope'></i>
-                                        <input type="email" id="lead-email" required placeholder="john@example.com">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Phone Number</label>
-                                    <div class="input-wrap">
-                                        <i class='bx bx-phone'></i>
-                                        <input type="tel" id="lead-phone" required placeholder="555-0123">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Status</label>
-                                    <div class="input-wrap">
-                                        <i class='bx bx-adjust'></i>
-                                        <select id="lead-status" required>
-                                            <option value="" disabled selected>Select Status</option>
-                                            <option value="New">New</option>
-                                            <option value="Contacted">Contacted</option>
-                                            <option value="Interested">Interested</option>
-                                            <option value="Converted">Converted</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <button type="submit" id="submit-btn" class="btn btn-primary w-100">Save Lead</button>
-                            </form>
-                        </div>
-
-                        <!-- Table Card -->
-                        <div class="table-container glass-panel">
-                            
-                            <!-- Filter & Search -->
-                            <div class="controls">
-                                <div class="search-box">
-                                    <i class='bx bx-search'></i>
-                                    <input type="text" id="search-input" placeholder="Search leads by name...">
-                                </div>
-                                <div class="filter-box">
-                                    <i class='bx bx-filter-alt'></i>
-                                    <select id="filter-status">
-                                        <option value="All">All Statuses</option>
-                                        <option value="New">New</option>
-                                        <option value="Contacted">Contacted</option>
-                                        <option value="Interested">Interested</option>
-                                        <option value="Converted">Converted</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="table-responsive">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Contact Details</th>
-                                            <th>Added Date</th>
-                                            <th>Status</th>
-                                            <th style="text-align: right;">Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="leads-table-body">
-                                        <!-- JS render -->
-                                    </tbody>
-                                </table>
-                                <div id="empty-state" class="empty-state hidden">
-                                    <i class='bx bx-folder-open'></i>
-                                    <p>No leads found in database.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </section>
-
-                <!-- ==========================================
-                     ADVANCED ANALYTICS VIEW
-                     ========================================== -->
-                <section id="view-analytics" class="view-panel hidden">
-                    <div class="view-head">
-                        <h1>Advanced Analytics</h1>
-                        <p>Deep dive into your CRM performance metrics, distributions, and acquisition trends.</p>
-                    </div>
-                    
-                    <div class="analytics-grid">
-                        
-                        <!-- Status Distribution Doughnut Chart -->
-                        <div class="chart-box glass-panel">
-                            <div class="panel-header">
-                                <h3>Total Portfolio Distribution</h3>
-                            </div>
-                            <div class="canvas-wrapper" style="height: 350px;">
-                                <canvas id="statusChart"></canvas>
-                            </div>
-                        </div>
-
-                        <!-- Acquisition Trends Line Chart -->
-                        <div class="chart-box glass-panel trend-col">
-                            <div class="panel-header">
-                                <h3>Weekly Acquisition Trends</h3>
-                            </div>
-                            <div class="canvas-wrapper" style="height: 350px;">
-                                <canvas id="trendChart"></canvas>
-                            </div>
-                        </div>
-
-                    </div>
-                </section>
-
-                <!-- ==========================================
-                     SETTINGS VIEW
-                     ========================================== -->
-                <section id="view-settings" class="view-panel hidden">
-                    <div class="view-head">
-                        <h1>Settings</h1>
-                        <p>Manage application preferences.</p>
-                    </div>
-                    <div class="glass-panel form-container" style="max-width: 600px;">
-                        <h3 style="margin-bottom: 1rem;">Data Management</h3>
-                        <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.9rem;">Clean up your local storage persistence layer safely.</p>
-                        <button class="btn btn-outline-danger" onclick="if(confirm('Wipe all data?')){localStorage.clear();location.reload();}">
-                            <i class='bx bx-trash'></i> Wipe Database
-                        </button>
-                    </div>
-                </section>
-
+            <div class="menu-toggle" id="mobile-menu">
+                <i class="fas fa-bars"></i>
             </div>
-        </main>
+        </div>
+    </header>
+
+    <!-- Welcome Notification Popup -->
+    <div class="welcome-popup" id="welcome-popup">
+        <div class="popup-content">
+            <button id="close-popup" class="close-popup-btn"><i class="fas fa-times"></i></button>
+            <i class="fas fa-gift popup-icon"></i>
+            <h3>Welcome to Lumière!</h3>
+            <p>Discover our latest collection of premium <strong>Cloths</strong>, fine <strong>Jewellary</strong>, and stylish <strong>Footwear</strong>. Shop now to elevate your style!</p>
+            <a href="#products" class="btn btn-primary btn-block" id="shop-popup-btn">View Products</a>
+        </div>
     </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button id="close-cart"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Empty cart message default -->
+            <div class="empty-cart-msg">Your cart is currently empty.</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total</span>
+                <span id="cart-total-price">₹0.00</span>
+            </div>
+            <button class="btn btn-primary btn-block">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Home Section -->
+    <section id="home" class="hero">
+        <!-- Using the generated image as background -->
+        <div class="hero-bg" style="background-image: url('file:///C:/Users/rajan/.gemini/antigravity/brain/b7bc5812-b9d9-4304-ba73-43a454b52bd4/hero_banner_1775155421138.png');"></div>
+        <div class="hero-content reveal">
+            <span class="subtitle">New Collection</span>
+            <h1>Trendy Styles for Every Occasion</h1>
+            <p>Discover our exclusive curated collection defined by elegance, modern aesthetics, and luxury.</p>
+            <a href="#products" class="btn btn-primary">Shop Now</a>
+            <a href="#gallery" class="btn btn-outline">Explore Gallery</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about section-padding">
+        <div class="container layout-2-col">
+            <div class="about-text reveal">
+                <h2 class="section-title">Elevate Your <span>Style</span></h2>
+                <p>Welcome to Lumière Boutique, where fashion meets elegance. We believe that what you wear is an expression of who you are. Our collections are carefully curated to bring you the best in contemporary fashion with a timeless appeal.</p>
+                <p>From luxurious fabrics to exquisite tailoring, every piece in our boutique is chosen to help you stand out. Step into a world of refined aesthetics and soft, beautiful tones.</p>
+                <div class="social-links about-socials mt-4">
+                    <p style="font-weight: bold; margin-bottom: 10px;">Follow our journey on social media:</p>
+                    <a href="https://instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="about-image-wrapper reveal delay-1">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=800" alt="Boutique Environment" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; z-index:1; mix-blend-mode: multiply; opacity: 0.9;">
+                    <div class="shape-blob"></div>
+                    <div class="image-inner">
+                        <i class="fas fa-gem" style="font-size: 5rem; color: var(--gold);"></i>
+                        <h3 style="color:var(--white);">Luxury Defined</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products section-padding bg-light">
+        <div class="container">
+            <div class="text-center reveal">
+                <h2 class="section-title">Featured <span>Pieces</span></h2>
+                <p>Our most loved styles this season.</p>
+                
+                <div id="no-products-msg" style="display: none; padding: 40px; color: #ff6b6b; font-size: 1.2rem;">
+                    No products matched your search.
+                </div>
+            </div>
+            
+            <div class="product-grid" id="product-grid">
+                <!-- Product 1: Dress (Cloths) -->
+                <div class="product-card reveal delay-1" data-tags="cloths clothes clothing dress fashion silk woman women outfit">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&q=80&w=600" alt="Silk Midi Dress">
+                        <div class="product-overlay">
+                            <button class="btn btn-small add-to-cart-btn" data-id="p1" data-name="Silk Midi Dress" data-price="10500" data-img="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&q=80&w=600">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Silk Midi Dress</h3>
+                        <p class="price">₹10,500</p>
+                    </div>
+                </div>
+                
+                <!-- Product 2: Bag (Bags) -->
+                <div class="product-card reveal delay-2" data-tags="bags handbag bag leather tote accessory accessories purse">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?auto=format&fit=crop&q=80&w=600" alt="Blush Leather Tote">
+                        <div class="product-overlay">
+                            <button class="btn btn-small add-to-cart-btn" data-id="p2" data-name="Blush Leather Tote" data-price="14000" data-img="https://images.unsplash.com/photo-1591561954557-26941169b49e?auto=format&fit=crop&q=80&w=600">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Blush Leather Tote</h3>
+                        <p class="price">₹14,000</p>
+                    </div>
+                </div>
+                
+                <!-- Product 3: Jewelry (Jewellary) -->
+                <div class="product-card reveal delay-3" data-tags="jewellary jewelry necklace gold chains neck accesories women">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1599643478524-fb66f4521192?auto=format&fit=crop&q=80&w=600" alt="Gold Statement Necklace">
+                        <div class="product-overlay">
+                            <button class="btn btn-small add-to-cart-btn" data-id="p3" data-name="Gold Statement Necklace" data-price="5500" data-img="https://images.unsplash.com/photo-1599643478524-fb66f4521192?auto=format&fit=crop&q=80&w=600">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Gold Statement Necklace</h3>
+                        <p class="price">₹5,500</p>
+                    </div>
+                </div>
+
+                <!-- Product 4: Coat (Cloths) -->
+                <div class="product-card reveal delay-1" data-tags="cloths clothes clothing coat outerwear trench winter style">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&q=80&w=600" alt="Elegant Trench Coat">
+                        <div class="product-overlay">
+                            <button class="btn btn-small add-to-cart-btn" data-id="p4" data-name="Elegant Trench Coat" data-price="22000" data-img="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&q=80&w=600">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Elegant Trench Coat</h3>
+                        <p class="price">₹22,000</p>
+                    </div>
+                </div>
+
+                <!-- Product 5: Boots (Footwear) -->
+                <div class="product-card reveal delay-2" data-tags="footwear shoes boots leather suede ankle women">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1608667508764-33cf0726b13a?auto=format&fit=crop&q=80&w=600" alt="Suede Ankle Boots">
+                        <div class="product-overlay">
+                            <button class="btn btn-small add-to-cart-btn" data-id="p5" data-name="Suede Ankle Boots" data-price="8900" data-img="https://images.unsplash.com/photo-1608667508764-33cf0726b13a?auto=format&fit=crop&q=80&w=600">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Suede Ankle Boots</h3>
+                        <p class="price">₹8,900</p>
+                    </div>
+                </div>
+
+                <!-- Product 6: Sunglasses (Accessories) -->
+                <div class="product-card reveal delay-3" data-tags="accessories glasses sunglasses shades summer eyewear lens">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&q=80&w=600" alt="Classic Sunglasses">
+                        <div class="product-overlay">
+                            <button class="btn btn-small add-to-cart-btn" data-id="p6" data-name="Classic Sunglasses" data-price="4500" data-img="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&q=80&w=600">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Classic Sunglasses</h3>
+                        <p class="price">₹4,500</p>
+                    </div>
+                </div>
+                
+                <!-- Product 7: Jewelry (Earrings/Rings) -->
+                <div class="product-card reveal delay-1" data-tags="jewellary jewelry diamond rings earrings silver women gifts">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?auto=format&fit=crop&q=80&w=600" alt="Diamond Ring & Earrings">
+                        <div class="product-overlay">
+                            <button class="btn btn-small add-to-cart-btn" data-id="p7" data-name="Diamond Ring & Earrings" data-price="12500" data-img="https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?auto=format&fit=crop&q=80&w=600">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Diamond Ring & Earrings</h3>
+                        <p class="price">₹12,500</p>
+                    </div>
+                </div>
+
+                <!-- Product 8: Footwear (Sneakers/Flats) -->
+                <div class="product-card reveal delay-2" data-tags="footwear shoes sneakers white flats casual sporty comfort women">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&q=80&w=600" alt="Comfort White Sneakers">
+                        <div class="product-overlay">
+                            <button class="btn btn-small add-to-cart-btn" data-id="p8" data-name="Comfort White Sneakers" data-price="6500" data-img="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&q=80&w=600">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Comfort White Sneakers</h3>
+                        <p class="price">₹6,500</p>
+                    </div>
+                </div>
+
+                <!-- NEW CLOTHING PRODUCTS -->
+                <!-- Product 9: Red Dress -->
+                <div class="product-card reveal delay-3" data-tags="cloths clothes clothing dress red evening gown fashion woman">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1572804013309-82a89b4f259e?auto=format&fit=crop&q=80&w=600" alt="Crimson Red Evening Dress">
+                        <div class="product-overlay">
+                            <button class="btn btn-small add-to-cart-btn" data-id="p9" data-name="Crimson Red Evening Dress" data-price="15500" data-img="https://images.unsplash.com/photo-1572804013309-82a89b4f259e?auto=format&fit=crop&q=80&w=600">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Crimson Red Evening Dress</h3>
+                        <p class="price">₹15,500</p>
+                    </div>
+                </div>
+
+                <!-- Product 10: Denim Jacket -->
+                <div class="product-card reveal delay-1" data-tags="cloths clothes clothing denim jacket casual blue outerwear">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=600" alt="Classic Denim Jacket">
+                        <div class="product-overlay">
+                            <button class="btn btn-small add-to-cart-btn" data-id="p10" data-name="Classic Denim Jacket" data-price="4800" data-img="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=600">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Classic Denim Jacket</h3>
+                        <p class="price">₹4,800</p>
+                    </div>
+                </div>
+
+                <!-- Product 11: Casual T-Shirt -->
+                <div class="product-card reveal delay-2" data-tags="cloths clothes clothing tshirt shirt white casual top">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&q=80&w=600" alt="White Casual T-Shirt">
+                        <div class="product-overlay">
+                            <button class="btn btn-small add-to-cart-btn" data-id="p11" data-name="White Casual T-Shirt" data-price="1500" data-img="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&q=80&w=600">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>White Casual T-Shirt</h3>
+                        <p class="price">₹1,500</p>
+                    </div>
+                </div>
+
+                <!-- Product 12: Wool Coat -->
+                <div class="product-card reveal delay-3" data-tags="cloths clothes clothing coat wool autumn winter outerwear">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1539533113208-f6df8cc8b543?auto=format&fit=crop&q=80&w=600" alt="Autumn Wool Coat">
+                        <div class="product-overlay">
+                            <button class="btn btn-small add-to-cart-btn" data-id="p12" data-name="Autumn Wool Coat" data-price="19000" data-img="https://images.unsplash.com/photo-1539533113208-f6df8cc8b543?auto=format&fit=crop&q=80&w=600">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Autumn Wool Coat</h3>
+                        <p class="price">₹19,000</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4 reveal delay-1">
+                <a href="#products" class="btn btn-primary" onclick="window.scrollTo(0, 0); document.getElementById('search-input').focus(); document.querySelector('.search-input').classList.add('active'); return false;">Search More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery section-padding">
+        <div class="container text-center reveal">
+            <h2 class="section-title">Look<span>book</span></h2>
+            <p>Get inspired by our latest styled looks, featuring real cloths, jewellary, and footwear.</p>
+        </div>
+        
+        <div class="gallery-grid-extended reveal delay-1 mt-4">
+            <div class="gallery-item item-large" style="background-image: url('https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&q=80&w=800');">
+                 <div class="gallery-inner"><h3>Summer Chic Cloths</h3></div>
+            </div>
+            <div class="gallery-item item-small" style="background-image: url('https://images.unsplash.com/photo-1535632066927-ab7c9f8723c1?auto=format&fit=crop&q=80&w=800');">
+                 <div class="gallery-inner"><h3>Elegant Jewellary</h3></div>
+            </div>
+            <div class="gallery-item item-small" style="background-image: url('https://images.unsplash.com/photo-1560343090-f0409e92791a?auto=format&fit=crop&q=80&w=800');">
+                 <div class="gallery-inner"><h3>Premium Footwear</h3></div>
+            </div>
+            <div class="gallery-item item-medium" style="background-image: url('https://images.unsplash.com/photo-1584916201218-f4242ceb4809?auto=format&fit=crop&q=80&w=800');">
+                 <div class="gallery-inner"><h3>Luxury Handbags</h3></div>
+            </div>
+            
+            <!-- Additional Cloths added to Gallery -->
+            <div class="gallery-item item-medium" style="background-image: url('https://images.unsplash.com/photo-1550614000-4b953d6ebef4?auto=format&fit=crop&q=80&w=800');">
+                 <div class="gallery-inner"><h3>Casual Wear Cloths</h3></div>
+            </div>
+            <div class="gallery-item item-medium" style="background-image: url('https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&q=80&w=800');">
+                 <div class="gallery-inner"><h3>Spring Dresses</h3></div>
+            </div>
+
+            <div class="gallery-item item-wide" style="background-image: url('https://images.unsplash.com/photo-1566206091558-7f218b696731?auto=format&fit=crop&q=80&w=800');">
+                 <div class="gallery-inner"><h3>Evening Elegance</h3></div>
+            </div>
+            <div class="gallery-item item-wide" style="background-image: url('https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&q=80&w=800');">
+                 <div class="gallery-inner"><h3>Fine Details</h3></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section-padding bg-dark">
+        <div class="container layout-2-col">
+            <div class="contact-info reveal">
+                <h2 class="section-title text-light">Visit <span>Us</span></h2>
+                <p class="text-light">We'd love to see you in our store or hear from you online. Get in touch with us for personal styling or any inquiries!</p>
+                
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h4>Location</h4>
+                        <p>123 Fashion Avenue, Style District</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <div>
+                        <h4>Phone</h4>
+                        <p>7993276205</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h4>Email</h4>
+                        <p>divyasri@gmail.com</p>
+                    </div>
+                </div>
+                
+                <div class="social-links mt-4">
+                    <p style="width: 100%; color: var(--gold); margin-bottom: 10px;">Connect With Us:</p>
+                    <a href="https://instagram.com/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            
+            <div class="contact-form reveal delay-1">
+                <!-- Connects directly to divyasri@gmail.com securely -->
+                <form action="https://formsubmit.co/divyasri@gmail.com" method="POST">
+                    <input type="hidden" name="_subject" value="New Customer Inquiry from Lumière Boutique">
+                    <input type="hidden" name="_captcha" value="false">
+                    
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" placeholder="Your Message or Inquiry..." rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Send Message Directly</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <p>&copy; 2026 Lumière Boutique. Designed with elegance.</p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification for Adding to Cart -->
+    <div id="toast" class="toast">Item added to cart!</div>
 
     <script src="script.js"></script>
 </body>
