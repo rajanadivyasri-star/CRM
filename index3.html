@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Mini CRM</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #f5f5f5;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+input, select, button {
+    padding: 10px;
+    margin: 5px;
+}
+
+button {
+    background: #2c3e50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Client Lead Management (Mini CRM)</h1>
+
+<!-- Form -->
+<input type="text" id="name" placeholder="Name">
+<input type="email" id="email" placeholder="Email">
+<input type="text" id="phone" placeholder="Phone">
+
+<select id="status">
+<option>New</option>
+<option>Contacted</option>
+<option>Interested</option>
+<option>Converted</option>
+</select>
+
+<button onclick="addLead()">Add Lead</button>
+
+<!-- Table -->
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Phone</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody id="leadTable"></tbody>
+
+</table>
+
+</div>
+
+<script>
+
+// Load data from browser storage
+let leads = JSON.parse(localStorage.getItem("leads")) || [];
+
+// Display leads
+function displayLeads() {
+    let table = document.getElementById("leadTable");
+    table.innerHTML = "";
+
+    leads.forEach((lead, index) => {
+        table.innerHTML += `
+        <tr>
+            <td>${lead.name}</td>
+            <td>${lead.email}</td>
+            <td>${lead.phone}</td>
+            <td>${lead.status}</td>
+            <td>
+                <button onclick="deleteLead(${index})">Delete</button>
+            </td>
+        </tr>
+        `;
+    });
+}
+
+// Add lead
+function addLead() {
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let phone = document.getElementById("phone").value;
+    let status = document.getElementById("status").value;
+
+    if (name === "" || email === "" || phone === "") {
+        alert("Please fill all fields");
+        return;
+    }
+
+    let lead = { name, email, phone, status };
+
+    leads.push(lead);
+
+    localStorage.setItem("leads", JSON.stringify(leads));
+
+    displayLeads();
+
+    // Clear inputs
+    document.getElementById("name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("phone").value = "";
+}
+
+// Delete lead
+function deleteLead(index) {
+    leads.splice(index, 1);
+    localStorage.setItem("leads", JSON.stringify(leads));
+    displayLeads();
+}
+
+// Initial load
+displayLeads();
+
+</script>
+
+</body>
+</html>
