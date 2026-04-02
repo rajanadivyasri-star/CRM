@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Theme CRM</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+
+    <div class="app-layout">
+        
+        <!-- ==========================================
+             SIDEBAR NAVIGATION
+             ========================================== -->
+        <aside class="sidebar glass-panel">
+            <div class="brand">
+                <div class="brand-icon"><i class='bx bx-planet'></i></div>
+                <h2>Void <span>CRM</span></h2>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-target="view-dashboard">
+                    <i class='bx bx-grid-alt'></i> Dashboard
+                </a>
+                <a href="#" class="nav-item" data-target="view-leads">
+                    <i class='bx bx-group'></i> Leads
+                </a>
+                <a href="#" class="nav-item" data-target="view-analytics">
+                    <i class='bx bx-line-chart'></i> Analytics
+                </a>
+                <a href="#" class="nav-item" data-target="view-settings">
+                    <i class='bx bx-cog'></i> Settings
+                </a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <a href="#" class="nav-item text-danger" onclick="alert('Logged out securely.')">
+                    <i class='bx bx-log-out'></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- ==========================================
+             MAIN CONTENT
+             ========================================== -->
+        <main class="main-content">
+            
+            <!-- TOP HEADER -->
+            <header class="top-header glass-panel">
+                <div class="header-title">
+                    <h2>Welcome Back, Admin</h2>
+                </div>
+                <div class="header-actions">
+                    <div class="search-bar">
+                        <i class='bx bx-search'></i>
+                        <input type="text" placeholder="Global search..." disabled title="Use search in leads section">
+                    </div>
+                    <div class="profile-btn">
+                        <div class="avatar"><i class='bx bx-user'></i></div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="view-container">
+
+                <!-- ==========================================
+                     DASHBOARD VIEW
+                     ========================================== -->
+                <section id="view-dashboard" class="view-panel active">
+                    <div class="view-head">
+                        <h1>Dashboard Overview</h1>
+                        <p>Real-time metrics and lead generation analysis.</p>
+                    </div>
+
+                    <!-- 4 Summary Cards -->
+                    <div class="summary-grid">
+                        <div class="summary-card glass-panel">
+                            <div class="sc-content">
+                                <h3>Total Leads</h3>
+                                <h2 id="dash-total">0</h2>
+                            </div>
+                            <div class="sc-icon text-primary"><i class='bx bx-bar-chart-alt-2'></i></div>
+                            <div class="sc-growth positive"><i class='bx bx-up-arrow-alt'></i> 12.5%</div>
+                        </div>
+                        <div class="summary-card glass-panel">
+                            <div class="sc-content">
+                                <h3>New Leads</h3>
+                                <h2 id="dash-new">0</h2>
+                            </div>
+                            <div class="sc-icon text-info"><i class='bx bx-user-plus'></i></div>
+                            <div class="sc-growth positive"><i class='bx bx-up-arrow-alt'></i> 5.2%</div>
+                        </div>
+                        <div class="summary-card glass-panel">
+                            <div class="sc-content">
+                                <h3>Converted Leads</h3>
+                                <h2 id="dash-converted">0</h2>
+                            </div>
+                            <div class="sc-icon text-success"><i class='bx bx-check-circle'></i></div>
+                            <div class="sc-growth positive"><i class='bx bx-up-arrow-alt'></i> 8.4%</div>
+                        </div>
+                        <div class="summary-card glass-panel">
+                            <div class="sc-content">
+                                <h3>Conversion Rate</h3>
+                                <h2 id="dash-rate">0%</h2>
+                            </div>
+                            <div class="sc-icon text-warning"><i class='bx bx-target-lock'></i></div>
+                            <div class="sc-growth negative"><i class='bx bx-down-arrow-alt'></i> 1.1%</div>
+                        </div>
+                    </div>
+
+                    <!-- Chart & Activity -->
+                    <div class="dashboard-split">
+                        
+                        <!-- Chart.js Container -->
+                        <div class="chart-container glass-panel">
+                            <div class="panel-header">
+                                <h3>Lead Generation Overview</h3>
+                            </div>
+                            <div class="canvas-wrapper">
+                                <canvas id="leadChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Recent Activity -->
+                        <div class="activity-container glass-panel">
+                            <div class="panel-header">
+                                <h3>Recent Activity</h3>
+                            </div>
+                            <ul class="activity-list" id="recent-activity-list">
+                                <!-- Populated by JS -->
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==========================================
+                     LEADS VIEW
+                     ========================================== -->
+                <section id="view-leads" class="view-panel hidden">
+                    <div class="view-head">
+                        <h1>Leads Management</h1>
+                        <p>Detailed tracking, adding, and filtering of leads.</p>
+                    </div>
+
+                    <div class="leads-layout">
+                        
+                        <!-- Form Card -->
+                        <div class="form-container glass-panel">
+                            <div class="panel-header" style="justify-content: space-between;">
+                                <h3 id="form-title">Add New Lead</h3>
+                                <button id="cancel-edit-btn" class="btn btn-icon hidden"><i class='bx bx-x'></i></button>
+                            </div>
+                            <form id="lead-form">
+                                <input type="hidden" id="lead-id">
+                                
+                                <div class="form-group">
+                                    <label>Full Name</label>
+                                    <div class="input-wrap">
+                                        <i class='bx bx-user'></i>
+                                        <input type="text" id="lead-name" required placeholder="John Doe">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email Address</label>
+                                    <div class="input-wrap">
+                                        <i class='bx bx-envelope'></i>
+                                        <input type="email" id="lead-email" required placeholder="john@example.com">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone Number</label>
+                                    <div class="input-wrap">
+                                        <i class='bx bx-phone'></i>
+                                        <input type="tel" id="lead-phone" required placeholder="555-0123">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    <div class="input-wrap">
+                                        <i class='bx bx-adjust'></i>
+                                        <select id="lead-status" required>
+                                            <option value="" disabled selected>Select Status</option>
+                                            <option value="New">New</option>
+                                            <option value="Contacted">Contacted</option>
+                                            <option value="Interested">Interested</option>
+                                            <option value="Converted">Converted</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <button type="submit" id="submit-btn" class="btn btn-primary w-100">Save Lead</button>
+                            </form>
+                        </div>
+
+                        <!-- Table Card -->
+                        <div class="table-container glass-panel">
+                            
+                            <!-- Filter & Search -->
+                            <div class="controls">
+                                <div class="search-box">
+                                    <i class='bx bx-search'></i>
+                                    <input type="text" id="search-input" placeholder="Search leads by name...">
+                                </div>
+                                <div class="filter-box">
+                                    <i class='bx bx-filter-alt'></i>
+                                    <select id="filter-status">
+                                        <option value="All">All Statuses</option>
+                                        <option value="New">New</option>
+                                        <option value="Contacted">Contacted</option>
+                                        <option value="Interested">Interested</option>
+                                        <option value="Converted">Converted</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Contact Details</th>
+                                            <th>Added Date</th>
+                                            <th>Status</th>
+                                            <th style="text-align: right;">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="leads-table-body">
+                                        <!-- JS render -->
+                                    </tbody>
+                                </table>
+                                <div id="empty-state" class="empty-state hidden">
+                                    <i class='bx bx-folder-open'></i>
+                                    <p>No leads found in database.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- ==========================================
+                     ADVANCED ANALYTICS VIEW
+                     ========================================== -->
+                <section id="view-analytics" class="view-panel hidden">
+                    <div class="view-head">
+                        <h1>Advanced Analytics</h1>
+                        <p>Deep dive into your CRM performance metrics, distributions, and acquisition trends.</p>
+                    </div>
+                    
+                    <div class="analytics-grid">
+                        
+                        <!-- Status Distribution Doughnut Chart -->
+                        <div class="chart-box glass-panel">
+                            <div class="panel-header">
+                                <h3>Total Portfolio Distribution</h3>
+                            </div>
+                            <div class="canvas-wrapper" style="height: 350px;">
+                                <canvas id="statusChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Acquisition Trends Line Chart -->
+                        <div class="chart-box glass-panel trend-col">
+                            <div class="panel-header">
+                                <h3>Weekly Acquisition Trends</h3>
+                            </div>
+                            <div class="canvas-wrapper" style="height: 350px;">
+                                <canvas id="trendChart"></canvas>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- ==========================================
+                     SETTINGS VIEW
+                     ========================================== -->
+                <section id="view-settings" class="view-panel hidden">
+                    <div class="view-head">
+                        <h1>Settings</h1>
+                        <p>Manage application preferences.</p>
+                    </div>
+                    <div class="glass-panel form-container" style="max-width: 600px;">
+                        <h3 style="margin-bottom: 1rem;">Data Management</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.9rem;">Clean up your local storage persistence layer safely.</p>
+                        <button class="btn btn-outline-danger" onclick="if(confirm('Wipe all data?')){localStorage.clear();location.reload();}">
+                            <i class='bx bx-trash'></i> Wipe Database
+                        </button>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
